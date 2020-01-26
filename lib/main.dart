@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_words/random_words.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _randomPhrase = '';
+  String _formattedDate = '';
 
   void _handleMessageButton() {
     setState(() {
@@ -45,6 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.timer),
+            tooltip: 'Show current time',
+            onPressed: () {
+              setState(() {
+                _formattedDate = DateFormat.Hms().format(DateTime.now());
+              });
+            },
+          )
+        ],
       ),
       body: Center(
         child: Column(
@@ -59,6 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_randomPhrase',
               style: Theme.of(context).textTheme.display2,
             ),
+            Text(
+              'Time: $_formattedDate',
+              style: Theme.of(context).textTheme.display1,
+            )
           ],
         ),
       ),
